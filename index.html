@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="lazyloading.js"></script>
+	<script type="text/javascript">
+		var load = new LazyLoad();
+		load.init();
+		events.on('newPageCalled',function(count){
+			document.getElementById('loader').style.display = 'block';
+			// ajax calls goes here
+			setTimeout(function() {// for demo purpose settimout given
+				document.getElementById('loader').style.display = 'none';
+				document.getElementById('content').innerHTML += 
+				'<div class="tiles-new"></div>';
+			}, 2000);
+		})
+	</script>
+	<style type="text/css">
+		.tiles{
+			width: 80%;
+			height: 800px;
+			margin: 0 auto;
+			background: #ccc;
+		}
+
+		.tiles-new{
+			width: 80%;
+			height: 800px;
+			margin: 0 auto;
+			background: #999;
+			margin-top:20px; 
+		}
+		#loader{
+			position:relative;
+			display:none;
+		}
+		img{
+			margin: auto;
+		    position: fixed;
+		    top: 0;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="loader"><img src="images/loading.gif"></div>
+	<div id="content">
+		<div class="tiles"></div>
+	</div>
+</body>
+</html>
