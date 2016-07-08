@@ -5,7 +5,7 @@
 	<script type="text/javascript" src="lazyloading.js"></script>
 	<script type="text/javascript">
 		var load = new LazyLoad();
-		load.init();
+		load.init();//pass id if you have any main wrapper
 		events.on('newPageCalled',function(count){
 			document.getElementById('loader').style.display = 'block';
 			// ajax calls goes here
