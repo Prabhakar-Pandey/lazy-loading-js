@@ -5,9 +5,9 @@ This plugin is written in javascript.
 # purpose
 This plugin enables user to add content in page dynamically
 
-load.init();
+<i><b>load.init();</b></i>
 pass id to init if you have any main wrapper where contents are getting added.
 
-events.on('newPageCalled',function(count){
+<i><b>events.on('newPageCalled',function(count){</i></b>
 // this is listner which listen when scroller is on bottom of page
-});
+<i><b>});</i></b>
