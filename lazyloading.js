@@ -1,5 +1,28 @@
 var LazyLoad = function() {
     var LazyLoad = {};
+    LazyLoad.events = {};
+
+    LazyLoad.on = function(eventName, fn) {
+        LazyLoad.events[eventName] = LazyLoad.events[eventName] || [];
+        LazyLoad.events[eventName].push(fn);
+    },
+    LazyLoad.off = function(eventName, fn) {
+        if (LazyLoad.events[eventName]) {
+            for (var i = 0; i < LazyLoad.events[eventName].length; i++) {
+                if (LazyLoad.events[eventName][i] === fn) {
+                    LazyLoad.events[eventName].splice(i, 1);
+                    break;
+                }
+            };
+        }
+    },
+    LazyLoad.emit = function(eventName, data) {
+        if (LazyLoad.events[eventName]) {
+            LazyLoad.events[eventName].forEach(function(fn) {
+                fn(data);
+            });
+        }
+    }
 
     LazyLoad.init = function(containerId) {
         if (containerId) {
@@ -19,34 +42,34 @@ var LazyLoad = function() {
         }
 
         if (scrollPos + screenHeight >= contentHeight) {
-            events.emit('newPageCalled', LazyLoad.pageNo);
+            LazyLoad.emit('newPageCalled', LazyLoad.pageNo);
         }
     }
 
     return LazyLoad;
 };
 
-var events = {
-    events: {},
-    on: function(eventName, fn) {
-        this.events[eventName] = this.events[eventName] || [];
-        this.events[eventName].push(fn);
-    },
-    off: function(eventName, fn) {
-        if (this.events[eventName]) {
-            for (var i = 0; i < this.events[eventName].length; i++) {
-                if (this.events[eventName][i] === fn) {
-                    this.events[eventName].splice(i, 1);
-                    break;
-                }
-            };
-        }
-    },
-    emit: function(eventName, data) {
-        if (this.events[eventName]) {
-            this.events[eventName].forEach(function(fn) {
-                fn(data);
-            });
-        }
-    }
-};
+// var events = {
+//     events: {},
+//     on: function(eventName, fn) {
+//         LazyLoad.events[eventName] = LazyLoad.events[eventName] || [];
+//         LazyLoad.events[eventName].push(fn);
+//     },
+//     off: function(eventName, fn) {
+//         if (LazyLoad.events[eventName]) {
+//             for (var i = 0; i < LazyLoad.events[eventName].length; i++) {
+//                 if (LazyLoad.events[eventName][i] === fn) {
+//                     LazyLoad.events[eventName].splice(i, 1);
+//                     break;
+//                 }
+//             };
+//         }
+//     },
+//     emit: function(eventName, data) {
+//         if (LazyLoad.events[eventName]) {
+//             LazyLoad.events[eventName].forEach(function(fn) {
+//                 fn(data);
+//             });
+//         }
+//     }
+// };
